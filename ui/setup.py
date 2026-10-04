@@ -29,6 +29,9 @@ def render():
         generate=st.form_submit_button('Generate Scenario',type='primary')
     if generate:
         def prepare():
+            # Keep the sidebar's YOUR PACE indicator in sync with the
+            # experience level selected for this practice attempt.
+            st.session_state.prefs['level']=level
             c=Configuration(my_culture=mine,other_culture=other,context=context,situation=situation,my_role=my_role,other_role=other_role,goal=goal,level=level,template_id='deadline' if deadline else 'group_project',persona_style='country_informed' if persona_style.startswith('Country') else 'contrast')
             if mode.startswith('Live') and not st.session_state.server_settings.groq_api_key:
                 from diagnostics import StageError
